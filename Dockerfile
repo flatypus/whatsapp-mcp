@@ -1,4 +1,4 @@
-FROM golang:1.21-alpine AS go-builder
+FROM golang:1.24-alpine AS go-builder
 
 RUN apk add --no-cache gcc musl-dev sqlite-dev
 
@@ -11,12 +11,9 @@ ENV CGO_ENABLED=1
 RUN go mod download
 RUN go build -o whatsapp-bridge main.go
 
-FROM ghcr.io/astral-sh/uv:latest
+FROM ghcr.io/astral-sh/uv:alpine
 
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    sqlite3 \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache ffmpeg sqlite
 
 WORKDIR /app
 
