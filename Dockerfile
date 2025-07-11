@@ -13,7 +13,7 @@ RUN go build -o whatsapp-bridge main.go
 
 FROM ghcr.io/astral-sh/uv:alpine
 
-RUN apk add --no-cache ffmpeg sqlite
+RUN apk add --no-cache ffmpeg sqlite bash
 
 WORKDIR /app
 
